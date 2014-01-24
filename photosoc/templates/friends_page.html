@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Friends{% endblock %}
+{% block head %}{{ user.first_name }} {{ user.last_name }}'s friends{% endblock %}
+{% block content %}
+{% if friends %}
+	<ul>
+	{% for friend in friends %}
+	<li><a href="/users/{{friend.username}}/">{{ friend.first_name }} {{ friend.last_name }}</a></li>
+	{% endfor %}
+	</ul>
+	{% else %}
+	<p>No friends found.</p>
+{% endif %}
+{% endblock %}

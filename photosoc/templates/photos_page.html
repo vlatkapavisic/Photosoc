@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Photos{% endblock %}
+{% block head %}Photo feed{% endblock %}
+{% block content %}
+{% if photos %}
+	<ul>
+	{% for p in photos %}
+		<p><img src="{{ p.photo.url }}"/></p>
+		<p>Posted by {{ p.user.first_name }} {{ p.user.last_name }} on {{ p.pub_date }}<br>Caption: {{ p.caption }}<br>
+		{% if p.private %}
+			Privacy: Private<br>
+		{% else %}
+			Privacy: Public<br>
+		{% endif %}
+		Tagged: 
+		{% for t in p.tag_set.all %}
+				{{ t.name }} 
+		{% endfor %}
+		<br><a href="/photo/{{ p.id }}/tag/">Tag this photo</a>
+		</p>
+		{% if user in p.likers.all %}
+			<a href="/unlike/?id={{ p.id }}">Unlike</a>
+		{% else %}
+			<a href="/like/?id={{ p.id }}">Like</a>
+		{% endif %}
+		<p>{{ p.likes }} likes<br>
+		People who like this:
+		{% for liker in p.likers.all %}
+			{{ liker.first_name }} {{ liker.last_name }}
+		{% endfor %}
+		<br><a href="/photo/{{ p.id }}/comments/">Comments</a>
+		</p>	
+		<hr>
+	{% endfor %}
+	</ul>
+	{% else %}
+	<p>No photos found.</p>
+{% endif %}
+{% endblock %}

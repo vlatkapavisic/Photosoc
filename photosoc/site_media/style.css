@@ -1,0 +1,18 @@
+#nav {
+	float: left; 
+	}
+body {
+	background-color: blanchedalmond;
+}
+input {
+	display: block;
+	}
+textarea {
+	display: block;
+	}
+.comment {
+	margin: 1em;
+	padding: 5px;
+	border: 1px solid #000;
+	}
+

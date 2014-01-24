@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load comments %}
+{% block title %}{{ photo.caption }}{% endblock %}
+{% block head %}{{ photo.caption }}{% endblock %}
+{% block content %}
+{% if photo %}
+<p><img src="{{ photo.photo.url }}"/></p>
+<p>Posted by {{ photo.user.first_name }} {{ photo.user.last_name }} on {{ photo.pub_date }}</p>
+<h2>Comments</h2>
+{% get_comment_list for photosoc_app.photo photo.id as comment_list %}
+{% for comment in comment_list %}
+<div class="comment">
+<p><b>{{ comment.user.username }}</b> said:</p>
+{{ comment.comment|escape|urlizetrunc:40|linebreaks }}
+</div>
+{% endfor %}
+{% render_comment_form for photosoc_app.photo photo.id %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Welcome to Photosoc{% endblock %}
+{% block head %}Welcome to Photosoc{% endblock %}
+{% block content %}
+{% if user.username %}
+<p>Welcome, {{ user.username }}!
+Here you can share your photos!</p>
+<p><a href="/users/">List of Photosoc users</a></p>
+<p><a href="/friends/">List of friends</p>
+<p><a href="/photos/">Photo feed</p>
+<p><a href="/upload/">Upload a photo</p>
+{% else %}
+<p>Welcome, anonymous user!
+You need to <a href="/login/">login</a>
+before you can share your photos.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{userr.first_name}} {{ userr.last_name }}{% endblock %}
+{% block head %}{{userr.first_name}} {{ userr.last_name }}{% endblock %}
+{% block content %}
+{% ifnotequal userr.username logged_in_user.username %}
+	{% if is_friend %}
+	<p>{{userr.first_name}} {{ userr.last_name }} is a friend of yours.</p>
+	{% else %}
+	<a href="/friend/add/?username={{ userr.username }}">
+	add {{userr.first_name}} {{ userr.last_name }} to your friends</a>
+	{% endif %}
+{% endifnotequal %}
+{% if userr %}
+	{% if friends %}
+		<p>{{userr.first_name}}'s friends</p>
+		<ul>
+		{% for friend in friends %}
+			<li><a href="/users/{{ friend.username }}/">{{ friend.first_name }} {{ friend.last_name }}</a></li>
+			{% endfor %}	
+		</ul>
+	{% endif %}
+	{% if photos %}
+		<p>{{userr.first_name}}'s photos</p>
+		<ul>
+		{% for p in photos %}
+			<p><img src="{{ p.photo.url }}"/></p>
+		{% endfor %}
+		</ul>
+		{% else %}
+		{% if is_friend %}
+			<p>{{userr.first_name}} hasn't uploaded any photos yet.</p>
+		{% else %}
+			<p>{{userr.first_name}} doesn't have any public photos.</p>
+		{% endif %}
+	{% endif %}
+{% endif %}
+{% endblock %}
+
